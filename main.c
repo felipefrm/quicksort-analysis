@@ -42,7 +42,6 @@ int main(int argc, char** argv) {
     for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
       vetN[i] = c;
 
-    char q;
     int qtdN = CharParaInt(vetN);  //transformamos o vetor de char para int
     printf("%d\n", qtdN);
     char **matN = (char**)malloc(qtdN*sizeof(char*));
@@ -82,23 +81,23 @@ int main(int argc, char** argv) {
           vStruct[i].f[j] = (float)rand()/RAND_MAX;
     }
 
-    int numAtivacoes = 0;
+    int numAtivacoes = 0, compara = 0;
     printf("Vetor inicial:\n");
     for (int i=0; i < SIZE; i++)
       printf("%d\n", vetor[i]);
     printf("\n");
 
-    quickInt(vetor,0,SIZE-1,&numAtivacoes);
+    quickInt(vetor,0,SIZE-1,&numAtivacoes, &compara);
 
     printf("Vetor ordenado:\n");
     for (int i=0; i < SIZE; i++)
       printf("%d\n", vetor[i]);
     printf("\n");
-    printf("Número de ativações: %d\n\n", numAtivacoes);
+    printf("Número de ativações: %d\nNúmero de comparação de chaves: %d\n\n", numAtivacoes, compara);
 
     free(vetor);
 
-    numAtivacoes = 0;
+    numAtivacoes = compara = 0;
     printf("Vetor de struct inicial:\n");
     for (int i=0; i < SIZE; i++){
       printf("%d %f %f %f %f\n", vStruct[i].ch, vStruct[i].f[0], vStruct[i].f[1], vStruct[i].f[2], vStruct[i].f[3]);
@@ -108,7 +107,7 @@ int main(int argc, char** argv) {
     }
     printf("\n");
 
-    quickStruct(vStruct,0,SIZE-1,&numAtivacoes);
+    quickStruct(vStruct,0,SIZE-1,&numAtivacoes, &compara);
 
     printf("Vetor de struct ordenado:\n");
     for (int i=0; i < SIZE; i++){
@@ -117,7 +116,7 @@ int main(int argc, char** argv) {
       //  printf("str%d: %s\n", j, vStruct[i].str[j]);
       //printf("\n");
     }
-    printf("Número de ativações: %d\n\n", numAtivacoes);
+    printf("Número de ativações: %d\nNúmero de comparação de chaves: %d\n\n", numAtivacoes, compara);
 
     free(vStruct);
 
