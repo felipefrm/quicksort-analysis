@@ -38,15 +38,20 @@ int main(int argc, char** argv) {
     FILE *input;
     input = fopen(argv[2], "r");
 
-    char c, charN[5];  //lendo a quantidade de N
+    char c, vetN[5];  //lendo a quantidade de N
     for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
-      charN[i] = c;
+      vetN[i] = c;
 
-    int qtdN = CharParaInt(charN);  //transformamos o vetor de char para int
-    int *N = (int*)malloc(qtdN*sizeof(int));
-
-    for(int i=0; (c=fgetc(input)) != EOF; i++){
-      
+    char q;
+    int qtdN = CharParaInt(vetN);  //transformamos o vetor de char para int
+    printf("%d\n", qtdN);
+    char **matN = (char**)malloc(qtdN*sizeof(char*));
+    for (int i=0; i<qtdN; i++){
+      matN[i] = (char*)malloc(10*sizeof(char));
+      for (int j=0; j<10; j++){
+        matN[i][j] = fgetc(input);
+        printf("%c", matN[i][j]);
+      }
     }
 
     fclose(input);
