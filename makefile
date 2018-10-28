@@ -1,7 +1,7 @@
 ########## Makefile ############
 
 all: main.o quicksort.o lista.o
-	gcc lista.o quicksort.o main.o -o quicksort
+	gcc lista.o quicksort.o main.o -o quicksort -lm
 
 main.o: main.c quicksort.h lista.h
 	gcc -g -c main.c
