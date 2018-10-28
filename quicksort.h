@@ -2,9 +2,9 @@
 #define QUICKSORT
 
 typedef struct TElemento {
-    int ch; //chave
-    char** str;
-    float *f;
+  int ch; //chave
+  char** str;
+  float *f;
 } elemento;
 
 int particionaStruct(elemento* vetor, int inicio, int fim);
