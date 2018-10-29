@@ -50,9 +50,9 @@ int main(int argc, char** argv) {
       elemento* vStruct = (elemento*)malloc(N[x]*sizeof(elemento));
       // Lista* li = criaLista();
 
+      int seed = atoi(argv[1]);
       for (int y=0; y<repeat; y++){
 
-        int seed = atoi(argv[1]);
         srand(seed); //seta a seed
         char letras[10] = {'a','b','c','d','e','f','g','h','i','j'};
         for (int i=0; i < N[x]; i++) {
