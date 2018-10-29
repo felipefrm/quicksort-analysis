@@ -7,10 +7,10 @@ typedef struct TElemento {
   float *f;
 } elemento;
 
-int particionaStruct(elemento* vetor, int inicio, int fim);
-void quickStruct(elemento *vetor, int inicio, int fim, int *cont);
-int particionaInt(int *vetor, int inicio, int fim);
-void quickInt(int *vetor, int inicio, int fim, int *cont);
+int particionaStruct(elemento* vetor, int inicio, int fim, int *compara);
+void quickStruct(elemento *vetor, int inicio, int fim, int *cont, int *compara);
+int particionaInt(int *vetor, int inicio, int fim, int *compara);
+void quickInt(int *vetor, int inicio, int fim, int *cont, int *compara);
 // int particionaLista(Lista* li, int inicio, int fim);
 // void quickLista(Lista* li, int inicio, int fim, int *cont);
 
