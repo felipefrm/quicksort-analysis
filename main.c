@@ -7,6 +7,7 @@
 #include "convert.h"
 
 #define K 10
+#define alfabeto 26
 #define sizestr 200
 #define qntfloat 4
 #define repeat 5
@@ -54,7 +55,7 @@ int main(int argc, char** argv) {
       for (int y=0; y<repeat; y++){
 
         srand(seed); //seta a seed
-        char letras[10] = {'a','b','c','d','e','f','g','h','i','j'};
+        char letras[26] = {"abcdefghijklmnopqrstuvwxyz"};
         for (int i=0; i < N[x]; i++) {
           vetor[i] = abs(rand()%(100*N[x]));
           // insereLista(li, vetor[i]);
@@ -65,7 +66,7 @@ int main(int argc, char** argv) {
           for (int j=0; j < K; j++) {
             vStruct[i].str[j] = (char*)malloc(sizestr*sizeof(char));
             for (int p=0; p<sizestr; p++) {
-              vStruct[i].str[j][p] = letras[rand()%K];
+              vStruct[i].str[j][p] = letras[rand()%alfabeto];
             }
           }
           for (int j=0; j < qntfloat; j++)
@@ -145,3 +146,12 @@ int main(int argc, char** argv) {
     printf("Digite o tamanho do vetor na linha de argumento\n");
   return 0;
 }
+
+/* FALTA:
+ajeitar o time
+compara e troca
+quick pra lista
+arq saida
+media estatisticas
+modularizar
+constantes
