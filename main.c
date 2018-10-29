@@ -31,9 +31,8 @@ int main(int argc, char** argv) {
   struct rusage resources;
   int rc;
   double utime, stime, total_time;
-  if (argc > 1) {
-    srand(time(NULL));
-    int SIZE = atoi(argv[1]);
+  if (argc > 3) {
+    srand(argv[1]); //seta a seed
 
     FILE *input;
     input = fopen(argv[2], "r");
@@ -46,11 +45,16 @@ int main(int argc, char** argv) {
     printf("%d\n", qtdN);
     char **matN = (char**)malloc(qtdN*sizeof(char*));
     for (int i=0; i<qtdN; i++){
-      matN[i] = (char*)malloc(10*sizeof(char));
-      for (int j=0; j<10; j++){
-        matN[i][j] = fgetc(input);
-        printf("%c", matN[i][j]);
+      matN[i] = (char*)malloc(K*sizeof(char));
+      for (int j=0; (c=fgetc(input)) != '\n'; j++){
+        matN[i][j] = c;
       }
+      // printf("%s\n", matN[i]);
+    }
+    int *N = (int*)malloc(qtdN*sizeof(int));
+    for (int i=0; i<qtdN; i++){
+      N[i] = CharParaInt(matN[i]);
+      printf("%d\n", N[i]);
     }
 
     fclose(input);
@@ -59,9 +63,14 @@ int main(int argc, char** argv) {
     output = fopen(argv[3], "w");
     fclose(output);
 
-    int *vetor = (int*) malloc(SIZE*sizeof(int));
-    elemento* vStruct = (elemento*)malloc(SIZE*sizeof(elemento));
-    // Lista* li = criaLista();
+    for (int x=0; x<qtdN; x++){
+      for (int y=0; y<5; y++){
+        int *vetor = (int*) malloc(N[i]*sizeof(int));
+        elemento* vStruct = (elemento*)malloc(N[i]*sizeof(elemento));
+        // Lista* li = criaLista();
+      }
+    }
+
 
     char letras[10] = {'a','b','c','d','e','f','g','h','i','j'};
     for (int i=0; i < SIZE; i++) {
@@ -96,6 +105,14 @@ int main(int argc, char** argv) {
     printf("Número de ativações: %d\nNúmero de comparação de chaves: %d\n\n", numAtivacoes, compara);
 
     free(vetor);
+
+    if((rc = getrusage(RUSAGE_SELF, &resources)) != 0)
+      perror("getrusage failed");
+
+    utime = (double) resources.ru_utime.tv_sec + 1.e-6 * (double) resources.ru_utime.tv_usec;
+    stime = (double) resources.ru_stime.tv_sec + 1.e-6 * (double) resources.ru_stime.tv_usec;
+    total_time = utime+stime;
+    printf("User time %.3f, System time %.3f, Total Time %.3f\n",utime, stime, total_time);
 
     numAtivacoes = compara = 0;
     printf("Vetor de struct inicial:\n");
