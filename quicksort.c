@@ -3,7 +3,7 @@
 #include <time.h>
 #include "quicksort.h"
 
-int particionaStruct(elemento* vetor, int inicio, int fim, int *compara) {
+int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *troca) {
 
   int esq, dir;
   elemento pivo, aux;
@@ -12,11 +12,15 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara) {
   pivo = vetor[inicio];
 
   while(esq < dir){
-    while(vetor[esq].ch <= pivo.ch && esq < fim) // vetor[esq] <= pivo
+    while(vetor[esq].ch <= pivo.ch && esq < fim) { // vetor[esq] <= pivo
+      (*compara)++;
       esq++;
+    }
 
-    while(pivo.ch < vetor[dir].ch) //  vetor[dir] > pivo
+    while(pivo.ch < vetor[dir].ch){ //  vetor[dir] > pivo
       dir--;
+      (*compara)++;
+    }
 
     if(dir < inicio || esq > fim) printf("\nERRO\n\n");
 
@@ -24,7 +28,7 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara) {
       aux = vetor[esq]; // troca vetor[esq] com vetor[dir]
       vetor[esq] = vetor[dir];
       vetor[dir] = aux;
-      (*compara)++;
+      (*troca)++;
     }
   }
 
@@ -37,20 +41,20 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara) {
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
-void quickStruct(elemento *vetor, int inicio, int fim, int *cont, int *compara){
+void quickStruct(elemento *vetor, int inicio, int fim, int *cont, int *compara, int *troca){
 
   (*cont)++;
   int pivo;
 
   if(inicio < fim){
-    pivo = particionaStruct(vetor,inicio,fim, compara); // encontra um pivo que "divide" o vetor em dois
-    quickStruct(vetor, inicio, pivo-1, cont, compara); // realiza a partição para a parte da esquerda
-    quickStruct(vetor, pivo+1, fim, cont, compara); // e realiza a partição para a parte de direita
+    pivo = particionaStruct(vetor, inicio, fim, compara, troca); // encontra um pivo que "divide" o vetor em dois
+    quickStruct(vetor, inicio, pivo-1, cont, compara, troca); // realiza a partição para a parte da esquerda
+    quickStruct(vetor, pivo+1, fim, cont, compara, troca); // e realiza a partição para a parte de direita
   }
 }
 
 
-int particionaInt(int vetor[], int inicio, int fim, int *compara){
+int particionaInt(int *vetor, int inicio, int fim, int *compara, int *troca){
 
   int esq, dir;
   int pivo, aux;
@@ -59,11 +63,15 @@ int particionaInt(int vetor[], int inicio, int fim, int *compara){
   pivo = vetor[inicio];
 
   while(esq<dir){
-    while(vetor[esq] <= pivo && esq<fim) // vetor[esq] <= pivo
+    while(vetor[esq] <= pivo && esq<fim) { // vetor[esq] <= pivo
       esq++;
+      (*compara)++;
+    }
 
-    while(pivo < vetor[dir]) //  vetor[dir] > pivo
+    while(pivo < vetor[dir]) { //  vetor[dir] > pivo
+      (*compara)++;
       dir--;
+    }
 
     if(dir < inicio || esq > fim) printf("\nERRO\n\n");
 
@@ -71,7 +79,7 @@ int particionaInt(int vetor[], int inicio, int fim, int *compara){
       aux = vetor[esq]; // troca vetor[esq] com vetor[dir]
       vetor[esq] = vetor[dir];
       vetor[dir] = aux;
-      (*compara)++;
+      (*troca)++;
     }
   }
 
@@ -80,15 +88,15 @@ int particionaInt(int vetor[], int inicio, int fim, int *compara){
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
-void quickInt(int vetor[], int inicio, int fim, int *cont, int *compara){
+void quickInt(int *vetor, int inicio, int fim, int *cont, int *compara, int *troca){
 
   (*cont)++;
   int pivo;
 
   if(inicio < fim){
-    pivo = particionaInt(vetor,inicio,fim, compara); // encontra um pivo que "divide" o vetor em dois
-    quickInt(vetor, inicio, pivo-1, cont, compara); // realiza a partição para a parte da esquerda
-    quickInt(vetor, pivo+1, fim, cont, compara); // e realiza a partição para a parte de direita
+    pivo = particionaInt(vetor,inicio,fim, compara, troca); // encontra um pivo que "divide" o vetor em dois
+    quickInt(vetor, inicio, pivo-1, cont, compara, troca); // realiza a partição para a parte da esquerda
+    quickInt(vetor, pivo+1, fim, cont, compara, troca); // e realiza a partição para a parte de direita
   }
 }
 //
