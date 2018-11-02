@@ -23,7 +23,7 @@ void randomStruct(elemento *v, int N){
       for (int k=0; k<sizestr-1; k++){
         v[i].str[j][k] = letras[rand()%alfabeto];
       }
-      v[i].str[j][sizestr] = '\0';  //terminador de string
+      v[i].str[j][sizestr-1] = '\0';  //terminador de string
     }
     for(int j=0; j<qntfloat; j++){
       v[i].f[j] = (float)rand()/RAND_MAX;
