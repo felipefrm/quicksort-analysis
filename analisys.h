@@ -1,5 +1,5 @@
-#ifndef ANALISYS
-#define ANALISYS
+#ifndef ANALYSIS
+#define ANALYSIS
 
 void randomVetor(int *v, int N);
 void randomStruct(elemento *v, int N);
