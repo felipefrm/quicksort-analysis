@@ -1,4 +1,3 @@
-//Arquivo ListaDinEncadDupla.h
 #ifndef LISTA
 #define LISTA
 
