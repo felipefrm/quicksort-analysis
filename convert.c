@@ -13,7 +13,7 @@ int transformaChar(char num){
 
 int CharParaInt(char *charN){
   int soma = 0, expoente = strlen(charN)-1;
-  for (int i = 0; i < 3; i++){
+  for (int i = 0; i < strlen(charN); i++){
     soma += transformaChar(charN[i]) * pow(10, expoente);
     expoente--;
   }
