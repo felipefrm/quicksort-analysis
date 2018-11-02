@@ -23,12 +23,11 @@ int main(int argc, char** argv){
     output = fopen(argv[3], "w");
 
     int qtdN, *N;
-    leituraParametros(input, &qtdN, N);
+    N = leituraParametros(input, &qtdN, N);
     // le quantidade de parametros e o valor de cada um
     //
-    printf("%d\n", qtdN);
     for(int i=0; i<qtdN; i++)
-      printf("%c\n", N[i]);
+      printf("%d\n", N[i]);
     // char c, vetN[2];  //lendo a quantidade de N
     // for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
     //   vetN[i] = c;

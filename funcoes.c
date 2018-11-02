@@ -23,7 +23,7 @@ void randomStruct(elemento *v, int N){
       for (int k=0; k<sizestr-1; k++){
         v[i].str[j][k] = letras[rand()%alfabeto];
       }
-      v[i].str[j][sizestr] = '\0';  //terminador de string
+      v[i].str[j][sizestr-1] = '\0';  //terminador de string
     }
     for(int j=0; j<qntfloat; j++){
       v[i].f[j] = (float)rand()/RAND_MAX;
@@ -45,7 +45,7 @@ void randomStruct(elemento *v, int N){
 //   }
 // }
 
-void leituraParametros(FILE *input, int *qtdN, int *N){
+int* leituraParametros(FILE *input, int *qtdN, int *N){
   int i, j; char c, vetN[3];    //lendo a quantidade de parametro N
   for(i=0; (c=fgetc(input)) != '\n'; i++)
     vetN[i] = c;  //o valor é lido como char
@@ -61,6 +61,7 @@ void leituraParametros(FILE *input, int *qtdN, int *N){
   N = (int*)calloc((*qtdN),sizeof(int));
   for(i=0; i<*qtdN; i++)
     N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
+  return N;
 }
 
 void contaTempo(double *utime, double *stime){
