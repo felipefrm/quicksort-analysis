@@ -22,29 +22,29 @@ int main(int argc, char** argv){
     FILE *output;
     output = fopen(argv[3], "w");
 
-    // int qtdN, *N;
-    // leituraParametros(input, &qtdN, N);
-    // // le quantidade de parametros e o valor de cada um
+    int qtdN, *N;
+    leituraParametros(input, &qtdN, N);
+    // le quantidade de parametros e o valor de cada um
     //
-    // printf("%d\n", qtdN);
-    // for(int i=0; i<qtdN; i++)
-    //   printf("%c\n", N[i]);
-    char c, vetN[2];  //lendo a quantidade de N
-    for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
-      vetN[i] = c;
-
-    int qtdN = CharParaInt(vetN);  //transformamos o vetor de char para int
-    char **matN = (char**)malloc(qtdN*sizeof(char*));
-    for (int i=0; i<qtdN; i++){
-      matN[i] = (char*)malloc(10*sizeof(char));    // lê os parametros N e guarda em uma matriz
-      for (int j=0; (c=fgetc(input)) != '\n'; j++)
-        matN[i][j] = c;
-    }
-
-    int *N = (int*)malloc(qtdN*sizeof(int));
-    for (int i=0; i<qtdN; i++)
-      N[i] = CharParaInt(matN[i]);
-
+    printf("%d\n", qtdN);
+    for(int i=0; i<qtdN; i++)
+      printf("%c\n", N[i]);
+    // char c, vetN[2];  //lendo a quantidade de N
+    // for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
+    //   vetN[i] = c;
+    //
+    // int qtdN = CharParaInt(vetN);  //transformamos o vetor de char para int
+    // char **matN = (char**)malloc(qtdN*sizeof(char*));
+    // for (int i=0; i<qtdN; i++){
+    //   matN[i] = (char*)malloc(10*sizeof(char));    // lê os parametros N e guarda em uma matriz
+    //   for (int j=0; (c=fgetc(input)) != '\n'; j++)
+    //     matN[i][j] = c;
+    // }
+    //
+    // int *N = (int*)malloc(qtdN*sizeof(int));
+    // for (int i=0; i<qtdN; i++)
+    //   N[i] = CharParaInt(matN[i]);
+    // //
     fclose(input);
 
     for (int i=0; i<qtdN; i++){
@@ -78,6 +78,7 @@ int main(int argc, char** argv){
         total_time[VET] += ((utime_pos-utime_ant) + (stime_pos-stime_ant)); //somatorio do tempo total para vetor
         trcmed[VET] += troca;   //somatorio das trocas para vetor
         cmpmed[VET] += compara; //somatorio das comparações para vetor
+        // fprintf(output, "")
 
         // printf("Vetor ordenado:\n");
         // for (int i=0; i < N[i]; i++)
@@ -138,8 +139,8 @@ int main(int argc, char** argv){
       //
       // fprintf(output, "Para N = %d, a media do tempo de eiecução em vetor foi de: %fs,\n"
       // "para struct foi de: %fs.\n", N[i], vet_soma_time/(float)repeat, strct_soma_time/(float)repeat);
-      fprintf(output, "Vetor:\nComparações de chaves: %f\nTrocas de registros: %f\nTempo total gasto na ordenação: %fs\n\n", cmpmed[VET]/5.0, trcmed[VET]/5.0, total_time[VET]/5.0);
-      fprintf(output, "Vetor de struct:\nComparações de chaves: %f\nTrocas de registros: %f\nTempo total gasto na ordenação: %fs\n\n", cmpmed[STRCT]/5.0, trcmed[STRCT]/5.0, total_time[STRCT]/5.0);
+      fprintf(output, "Vetor:\nComparações de chaves: %f\nTrocas de registros: %f\nTempo total gasto na ordenação: %fs\n\n", cmpmed[VET]/(float)REPEAT, trcmed[VET]/(float)REPEAT, total_time[VET]/(float)REPEAT);
+      fprintf(output, "Vetor de struct:\nComparações de chaves: %f\nTrocas de registros: %f\nTempo total gasto na ordenação: %fs\n\n", cmpmed[STRCT]/(float)REPEAT, trcmed[STRCT]/(float)REPEAT, total_time[STRCT]/(float)REPEAT);
       }
 
   fclose(output);
