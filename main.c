@@ -3,7 +3,7 @@
 // #include "lista.h"
 #include "quicksort.h"
 #include "convert.h"
-#include "analisys.h"
+#include "analysis.h"
 
 #define VET 0
 #define STRCT 1
@@ -79,4 +79,5 @@ int main(int argc, char** argv){
 
 /* FALTA:
 quick pra lista
+constantes
 */
