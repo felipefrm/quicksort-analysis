@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "quicksort.h"
-#include "analisys.h"
+#include "analysis.h"
 #include "convert.h"
 #include "lista.h"
 #include <sys/resource.h>
