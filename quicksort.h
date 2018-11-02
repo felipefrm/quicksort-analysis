@@ -1,11 +1,15 @@
 #ifndef QUICKSORT
 #define QUICKSORT
 
+#define qntstr 10
+#define sizestr 200
+#define qntfloat 4
+
 typedef struct TElemento {
   int ch; //chave
-  char** str;
+  char str[qntstr][sizestr];
   int boleano;
-  float f[4];
+  float f[qntfloat];
 } elemento;
 
 int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *troca);
