@@ -46,18 +46,20 @@ void randomStruct(elemento *v, int N){
 // }
 
 void leituraParametros(FILE *input, int *qtdN, int *N){
-  char c, vetN[2];    //lendo a quantidade de parametro N
-  for(int i=0; (c=fgetc(input)) != '\n'; i++)
+  int i, j; char c, vetN[3];    //lendo a quantidade de parametro N
+  for(i=0; (c=fgetc(input)) != '\n'; i++)
     vetN[i] = c;  //o valor é lido como char
+  vetN[i] = '\0';
   *qtdN = CharParaInt(vetN); // transformamos o vetor de char para int
-  char **matN = (char**)malloc((*qtdN)*sizeof(char*));
-  for (int i=0; i<*qtdN; i++){
-    matN[i] = (char*)malloc(10*sizeof(char));  // lê os valores de N é guarda em uma matriz de char
-    for(int j=0; (c=fgetc(input)) != '\n'; j++)
+  char **matN = (char**)calloc((*qtdN),sizeof(char*));
+  for (i=0; i<*qtdN; i++){
+    matN[i] = (char*)calloc(10,sizeof(char));  // lê os valores de N é guarda em uma matriz de char
+    for(j=0; (c=fgetc(input)) != '\n'; j++)
       matN[i][j] = c;
+    matN[i][j] = '\0';
   }
-  N = (int*)malloc((*qtdN)*sizeof(int));
-  for(int i=0; i<*qtdN; i++)
+  N = (int*)calloc((*qtdN),sizeof(int));
+  for(i=0; i<*qtdN; i++)
     N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
 }
 
