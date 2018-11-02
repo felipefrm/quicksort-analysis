@@ -22,28 +22,28 @@ int main(int argc, char** argv){
     FILE *output;
     output = fopen(argv[3], "w");
 
-    int qtdN, *N;
-    leituraParametros(input, &qtdN, N);
-    // le quantidade de parametros e o valor de cada um
-
-    printf("%d\n", qtdN);
-    for(int i=0; i<qtdN; i++)
-      printf("%c\n", N[i]);
-    // char c, vetN[2];  //lendo a quantidade de N
-    // for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
-    //   vetN[i] = c;
+    // int qtdN, *N;
+    // leituraParametros(input, &qtdN, N);
+    // // le quantidade de parametros e o valor de cada um
     //
-    // int qtdN = CharParaInt(vetN);  //transformamos o vetor de char para int
-    // char **matN = (char**)malloc(qtdN*sizeof(char*));
-    // for (int i=0; i<qtdN; i++){
-    //   matN[i] = (char*)malloc(10*sizeof(char));    // lê os parametros N e guarda em uma matriz
-    //   for (int j=0; (c=fgetc(input)) != '\n'; j++)
-    //     matN[i][j] = c;
-    // }
+    // printf("%d\n", qtdN);
+    // for(int i=0; i<qtdN; i++)
+    //   printf("%c\n", N[i]);
+    char c, vetN[2];  //lendo a quantidade de N
+    for(int i=0; (c=fgetc(input)) != '\n'; i++)  // o valor é lido como char
+      vetN[i] = c;
 
-    // int *N = (int*)malloc(qtdN*sizeof(int));
-    // for (int i=0; i<qtdN; i++)
-    //   N[i] = CharParaInt(matN[i]);
+    int qtdN = CharParaInt(vetN);  //transformamos o vetor de char para int
+    char **matN = (char**)malloc(qtdN*sizeof(char*));
+    for (int i=0; i<qtdN; i++){
+      matN[i] = (char*)malloc(10*sizeof(char));    // lê os parametros N e guarda em uma matriz
+      for (int j=0; (c=fgetc(input)) != '\n'; j++)
+        matN[i][j] = c;
+    }
+
+    int *N = (int*)malloc(qtdN*sizeof(int));
+    for (int i=0; i<qtdN; i++)
+      N[i] = CharParaInt(matN[i]);
 
     fclose(input);
 
