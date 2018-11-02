@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "quicksort.h"
 
 int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *troca) {
