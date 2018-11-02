@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "quicksort.h"
-#include "funcoes.h"
+#include "analisys.h"
 #include "convert.h"
 #include "lista.h"
 #include <sys/resource.h>
-
 
 #define alfabeto 26
 
@@ -59,8 +58,12 @@ int* leituraParametros(FILE *input, int *qtdN, int *N){
     matN[i][j] = '\0';
   }
   N = (int*)calloc((*qtdN),sizeof(int));
-  for(i=0; i<*qtdN; i++)
+  for(i=0; i<*qtdN; i++){
     N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
+    free(matN[i]);
+  }
+  free(matN);
+
   return N;
 }
 
@@ -69,5 +72,11 @@ void contaTempo(double *utime, double *stime){
   getrusage(RUSAGE_SELF, &resources);
   *utime = (double) resources.ru_utime.tv_sec + 1.e-6 * (double) resources.ru_utime.tv_usec;
   *stime = (double) resources.ru_stime.tv_sec + 1.e-6 * (double) resources.ru_stime.tv_usec;
+}
 
+
+void computaEstatisticas(double *tmpmed, double *trcmed, double *cmpmed, int tipo, double tempo, int troca, int compara){
+  tmpmed[tipo] += tempo;       //somatorio do tempo total
+  trcmed[tipo] += troca;       //somatorio das trocas de registros
+  cmpmed[tipo] += compara;     //somatorio das comparações de chaves
 }
