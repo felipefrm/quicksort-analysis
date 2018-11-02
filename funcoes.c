@@ -50,13 +50,13 @@ void leituraParametros(FILE *input, int *qtdN, int *N){
   for(int i=0; (c=fgetc(input)) != '\n'; i++)
     vetN[i] = c;  //o valor é lido como char
   *qtdN = CharParaInt(vetN); // transformamos o vetor de char para int
-  char **matN = (char**)malloc(*qtdN*sizeof(char*));
+  char **matN = (char**)malloc((*qtdN)*sizeof(char*));
   for (int i=0; i<*qtdN; i++){
     matN[i] = (char*)malloc(10*sizeof(char));  // lê os valores de N é guarda em uma matriz de char
     for(int j=0; (c=fgetc(input)) != '\n'; j++)
       matN[i][j] = c;
   }
-  N = (int*)malloc(*qtdN*sizeof(int));
+  N = (int*)malloc((*qtdN)*sizeof(int));
   for(int i=0; i<*qtdN; i++)
     N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
 }
