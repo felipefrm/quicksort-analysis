@@ -4,6 +4,8 @@
 #include "funcoes.h"
 #include "convert.h"
 #include "lista.h"
+#include <sys/resource.h>
+
 
 #define alfabeto 26
 
@@ -18,9 +20,10 @@ void randomStruct(elemento *v, int N){
   v[i].ch = abs(rand()%(100*N));
   v[i].boleano = abs(rand()%2);
     for(int j=0; j<qntstr; j++){
-      for (int k=0; k<sizestr; k++){
+      for (int k=0; k<sizestr-1; k++){
         v[i].str[j][k] = letras[rand()%alfabeto];
       }
+      v[i].str[j][sizestr] = '\0';  //terminador de string
     }
     for(int j=0; j<qntfloat; j++){
       v[i].f[j] = (float)rand()/RAND_MAX;
@@ -53,7 +56,15 @@ void leituraParametros(FILE *input, int *qtdN, int *N){
     for(int j=0; (c=fgetc(input)) != '\n'; j++)
       matN[i][j] = c;
   }
-  *N = (int*)malloc(*qtdN*sizeof(int));
+  N = (int*)malloc(*qtdN*sizeof(int));
   for(int i=0; i<*qtdN; i++)
     N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
+}
+
+void contaTempo(double *utime, double *stime){
+  struct rusage resources;
+  getrusage(RUSAGE_SELF, &resources);
+  *utime = (double) resources.ru_utime.tv_sec + 1.e-6 * (double) resources.ru_utime.tv_usec;
+  *stime = (double) resources.ru_stime.tv_sec + 1.e-6 * (double) resources.ru_stime.tv_usec;
+
 }
