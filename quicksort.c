@@ -41,15 +41,14 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *tr
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
-void quickStruct(elemento *vetor, int inicio, int fim, int *cont, int *compara, int *troca){
+void quickStruct(elemento *vetor, int inicio, int fim, int *compara, int *troca){
 
-  (*cont)++;
   int pivo;
 
   if(inicio < fim){
     pivo = particionaStruct(vetor, inicio, fim, compara, troca); // encontra um pivo que "divide" o vetor em dois
-    quickStruct(vetor, inicio, pivo-1, cont, compara, troca); // realiza a partição para a parte da esquerda
-    quickStruct(vetor, pivo+1, fim, cont, compara, troca); // e realiza a partição para a parte de direita
+    quickStruct(vetor, inicio, pivo-1, compara, troca); // realiza a partição para a parte da esquerda
+    quickStruct(vetor, pivo+1, fim, compara, troca); // e realiza a partição para a parte de direita
   }
 }
 
@@ -88,15 +87,14 @@ int particionaInt(int *vetor, int inicio, int fim, int *compara, int *troca){
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
-void quickInt(int *vetor, int inicio, int fim, int *cont, int *compara, int *troca){
+void quickInt(int *vetor, int inicio, int fim, int *compara, int *troca){
 
-  (*cont)++;
   int pivo;
 
   if(inicio < fim){
     pivo = particionaInt(vetor,inicio,fim, compara, troca); // encontra um pivo que "divide" o vetor em dois
-    quickInt(vetor, inicio, pivo-1, cont, compara, troca); // realiza a partição para a parte da esquerda
-    quickInt(vetor, pivo+1, fim, cont, compara, troca); // e realiza a partição para a parte de direita
+    quickInt(vetor, inicio, pivo-1, compara, troca); // realiza a partição para a parte da esquerda
+    quickInt(vetor, pivo+1, fim, compara, troca); // e realiza a partição para a parte de direita
   }
 }
 //
