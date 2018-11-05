@@ -8,7 +8,7 @@
 void randomVetor(int *v, int N);
 void randomStruct(elemento *v, int N);
 // void randomLista(Lista *li, int *v, int N)
-int* leituraParametros(FILE *input, int *qtdN, int *N);
+int* leituraParametros(FILE *input, int *qtdN);
 void contaTempo(double *utime, double *stime);
 void computaEstatisticas(double *tmpmed, double *trcmed, double *cmpmed, int tipo, double tempo, int troca, int compara);
 void imprimeMediaArq(FILE *output, double *cmpmed, double *trcmed, double *tmpmed, int repeat);
