@@ -5,9 +5,7 @@
 #include "convert.h"
 #include "analysis.h"
 
-#define VET 0
-#define STRCT 1
-#define LIST 2
+
 #define TYPE 3
 #define REPEAT 5
 #define INCREASE 10
@@ -28,7 +26,7 @@ int main(int argc, char** argv){
     for (int i=0; i<qtdN; i++){
       fprintf(output, "-------------------------------\nPara N = %d\n\n", N[i]);
       int *vetor = (int*) malloc(N[i]*sizeof(int));
-      elemento* vStruct = (elemento*)malloc(N[i]*sizeof(elemento));
+      elemento *vStruct = (elemento*)malloc(N[i]*sizeof(elemento));
       // Lista* li = criaLista();
 
       double cmpmed[TYPE]={0,0,0}, trcmed[TYPE]={0,0,0}, tmpmed[TYPE] = {0,0,0};
@@ -64,20 +62,14 @@ int main(int argc, char** argv){
       free(vetor);
       free(vStruct);
 
-      fprintf(output, "\n>>>   MÉDIA   <<<\n\n");
-      fprintf(output, ">>> VETOR\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[VET]/(float)REPEAT, trcmed[VET]/(float)REPEAT, tmpmed[VET]/(float)REPEAT);
-      fprintf(output, ">>> VETOR DE STRUCT\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[STRCT]/(float)REPEAT, trcmed[STRCT]/(float)REPEAT, tmpmed[STRCT]/(float)REPEAT);
-      }
+      imprimeMediaArq(output, cmpmed, trcmed, tmpmed, REPEAT);
+    }
 
       fclose(output);
       free(N);
   }
   else
-    printf("Digite o tamanho do vetor na linha de argumento\n");
+    printf("Digite todos argumentos na linha de argumento\n");
   return 0;
 }
 
-/* FALTA:
-quick pra lista
-constantes
-*/
