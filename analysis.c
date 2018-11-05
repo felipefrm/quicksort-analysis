@@ -44,8 +44,8 @@ void randomStruct(elemento *v, int N){
 //   }
 // }
 
-int* leituraParametros(FILE *input, int *qtdN, int *N){
-  int i, j; char c, vetN[3];    //lendo a quantidade de parametro N
+int* leituraParametros(FILE *input, int *qtdN){
+  int i, j, *N; char c, vetN[3];    //lendo a quantidade de parametro N
   for(i=0; (c=fgetc(input)) != '\n'; i++)
     vetN[i] = c;  //o valor é lido como char
   vetN[i] = '\0';
