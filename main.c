@@ -16,8 +16,7 @@ int main(int argc, char** argv){
 
     FILE *input;
     input = fopen(argv[2], "r");
-    int qtdN, *N;
-    N = leituraParametros(input, &qtdN, N);
+    int qtdN, *N = leituraParametros(input, &qtdN);
     fclose(input);
 
     FILE *output;
@@ -47,7 +46,7 @@ int main(int argc, char** argv){
         contaTempo(&utime_pos, &stime_pos); //marca tempo final
         diftempo = (utime_pos-utime_ant) + (stime_pos-stime_ant);
         computaEstatisticas(tmpmed, trcmed, cmpmed, VET, diftempo, troca, compara);
-        fprintf(output, "- Vetor\n   Comparações de chaves: %d\n   Trocas de registros: %d\n   Tempo gasto: %f\n\n", compara, troca, diftempo);
+        fprintf(output, "- Vetor\n   Comparações de chaves: %d\n   Trocas de registros: %d\n   Tempo gasto: %fs\n\n", compara, troca, diftempo);
 
         compara = troca = 0;
         contaTempo(&utime_ant, &stime_ant);  //marca o tempo inicial
@@ -55,7 +54,7 @@ int main(int argc, char** argv){
         contaTempo(&utime_pos, &stime_pos); //marca o tempo final
         diftempo = (utime_pos-utime_ant) + (stime_pos-stime_ant);
         computaEstatisticas(tmpmed, trcmed, cmpmed, STRCT, diftempo, troca, compara);
-        fprintf(output, "- Vetor de Struct:\n   Comparações de chaves: %d\n   Trocas de registros: %d\n   Tempo gasto: %f\n\n", compara, troca, diftempo);
+        fprintf(output, "- Vetor de Struct:\n   Comparações de chaves: %d\n   Trocas de registros: %d\n   Tempo gasto: %fs\n\n", compara, troca, diftempo);
 
       }
       //liberaLista(li):
@@ -72,4 +71,3 @@ int main(int argc, char** argv){
     printf("Digite todos argumentos na linha de argumento\n");
   return 0;
 }
-
