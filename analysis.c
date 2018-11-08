@@ -87,3 +87,30 @@ void imprimeMediaArq(FILE *output, double *cmpmed, double *trcmed, double *tmpme
   fprintf(output, ">>> VETOR DE STRUCT\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[STRCT]/(float)repeat, trcmed[STRCT]/(float)repeat, tmpmed[STRCT]/(float)repeat);
 
 }
+
+// void faztudo(int *N, int *vetor, elemento *vStruct, /*Lista *li*/, ){
+//   int compara, troca;
+//   double utime_ant, utime_pos, stime_ant, stime_pos, diftempo;
+//   double cmpmed[TYPE]={0,0,0}, trcmed[TYPE]={0,0,0}, tmpmed[TYPE] = {0,0,0};
+//   for(int i=0; i<TYPE; i++){
+//     compara = troca = 0;
+//     if (i=0){
+//       contaTempo(&utime_ant, &stime_ant); //marca tempo inicial
+//       quickInt(vetor, 0, N[i]-1, &compara, &troca);
+//       contaTempo(&utime_pos, &stime_pos); //marca tempo final
+//     }
+//     if (i=1){
+//       contaTempo(&utime_ant, &stime_ant); //marca tempo inicial
+//       quickStruct(vStruct, 0, N[i]-1, &compara, &troca);
+//       contaTempo(&utime_pos, &stime_pos); //marca tempo final
+//     }
+//     if (i=2){
+//       contaTempo(&utime_ant, &stime_ant); //marca tempo inicial
+//       quickLista;
+//       contaTempo(&utime_pos, &stime_pos); //marca tempo final
+//     }
+//     diftempo = (utime_pos-utime_ant) + (stime_pos-stime_ant);
+//     computaEstatisticas(tmpmed, trcmed, cmpmed, i, diftempo, troca, compara);
+//     fprintf(output, "- Vetor\n   Comparações de chaves: %d\n   Trocas de registros: %d\n   Tempo gasto: %fs\n\n", compara, troca, diftempo);
+//     }
+// }
