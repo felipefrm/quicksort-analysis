@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "lista.h" //inclui os Protótipos
 
-//Definição do tipo lista
-struct elemento{
-    struct elemento *ant;
-    struct elemento *prox;
-    int num;
-};
-typedef struct elemento Elem;
-
 Lista* criaLista(){
     Lista* li = (Lista*) malloc(sizeof(Lista));
     if(li != NULL)
@@ -29,22 +21,6 @@ void liberaLista(Lista* li){
     }
 }
 
-int insereLista(Lista* li, int num){
-    if(li == NULL)
-        return 0;
-    Elem* no;
-    no = (Elem*) malloc(sizeof(Elem));
-    if(no == NULL)
-        return 0;
-    no->num = num;
-    no->prox = (*li);
-    no->ant = NULL;
-    if(*li != NULL)//lista não vazia: apontar para o anterior!
-        (*li)->ant = no;
-    *li = no;
-    return 1;
-}
-
 void imprimeLista(Lista* li){
     if(li == NULL)
         return;
@@ -54,4 +30,18 @@ void imprimeLista(Lista* li){
         no = no->prox;
     }
     printf("\n");
+}
+//Função para trocar elementos facilmente
+void swap(int* a,int* b){
+  int t = *a;
+  *a = *b;
+  *b = t;
+}
+//Função para achar o último nó
+Elem* ultimono(Lista* li){
+  Elem* no = *li;
+  while(no->prox != NULL){
+    no = no->prox;
+  }
+  return no;
 }
