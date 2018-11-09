@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "lista.h"
 #include "quicksort.h"
+
+#define ESQMDIR(esq, dir)  (dir != NULL && esq != dir && esq != dir->prox)
 
 int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *troca) {
 
@@ -21,8 +24,6 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *tr
       (*compara)++;
     }
 
-    if(dir < inicio || esq > fim) printf("\nERRO\n\n");
-
     if(esq < dir){
       aux = vetor[esq]; // troca vetor[esq] com vetor[dir]
       vetor[esq] = vetor[dir];
@@ -33,10 +34,7 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *tr
 
   vetor[inicio] = vetor[dir];
   vetor[dir] = pivo;
-  // printf("Vetor ordenado entre %d e %d\n", inicio, fim);
-  // for (int i=inicio; i < fim; i++)
-  //     printf("%d ", vetor[i].ch);
-  // printf("\n");
+
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
@@ -71,8 +69,6 @@ int particionaInt(int *vetor, int inicio, int fim, int *compara, int *troca){
       dir--;
     }
 
-    if(dir < inicio || esq > fim) printf("\nERRO\n\n");
-
     if(esq < dir){
       aux = vetor[esq]; // troca vetor[esq] com vetor[dir]
       vetor[esq] = vetor[dir];
@@ -96,16 +92,41 @@ void quickInt(int *vetor, int inicio, int fim, int *compara, int *troca){
     quickInt(vetor, pivo+1, fim, compara, troca); // e realiza a partição para a parte de direita
   }
 }
-//
-// void particionaLista(Lista* li, Elem* dir){
-//   if (!validos(esq, dir)) return;
-//
-// }
-//
-// void quickLista(Lista* li, int inicio, int fim){
-//   Elem* pivo;
-//   if (fim > inicio){
-//     pivo = particionaLista(li, inicio, fim);
-//     quickLista(li, inicio, pivo)
-//   }
-// }
+
+//Função para particionar a Lista colocando o pivo no meio, tudo que for menor
+//antes e todos os maiores depois
+Elem* particionaLista(Elem* inicio, Elem* fim, int *compara, int *troca){
+  int x = fim->num;
+  Elem* pivo = inicio;
+  Elem* dir = fim;
+  Elem* esq = inicio;
+
+  while(dir != NULL && ESQMDIR(esq,dir)){
+    while(esq->num <= pivo->num && ESQMDIR(esq, fim)){
+      esq = esq->prox;
+      (*compara)++;
+    }
+    while(pivo->num < dir->num){
+      dir = dir->ant;
+      (*compara)++;
+    }
+    if (ESQMDIR(esq,dir))
+    {
+      swap(&(esq->num), &(dir->num));
+      (*troca)++;
+    }
+  }
+
+  inicio->num = dir->num;
+  dir->num = pivo->num;
+  return pivo;
+}
+
+void quickLista(Elem* inicio, Elem* fim, int *compara, int *troca){
+  Elem* pivo;
+  if (fim != NULL && inicio != fim && inicio != fim->prox){
+    pivo =  particionaLista(inicio, fim, compara, troca);
+    quickLista(inicio, pivo->ant, compara, troca);
+    quickLista(pivo->prox, fim, compara, troca);
+  }
+  }
