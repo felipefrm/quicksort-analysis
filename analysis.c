@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/resource.h>
 #include "quicksort.h"
 #include "analysis.h"
 #include "convert.h"
 #include "lista.h"
-#include <sys/resource.h>
 
 #define alfabeto 26
 
@@ -30,19 +30,44 @@ void randomStruct(elemento *v, int N){
   }
 }
 
-// void randomLista(*li, *v, N){
-//   Elem* no;
-//   no = (Elem*)malloc(sizeof(Elem));
-//   for(int i=0; i < N; i++){
-//     v[i] = abs(rand()%(100*N));
-//     no->num = v[i];
-//     no->prox = (*li);
-//     no->ant = NULL;
-//     if(*li != NULL)//lista não vazia: apontar para o anterior!
-//         (*li)->ant = no;
-//     *li = no;
-//   }
-// }
+  // void randomLista(Lista* li, int* v, int N){
+  //   Elem* no = (Elem*)malloc(sizeof(Elem));
+  //   for(int i=0; i < N; i++){
+  //     v[i] = abs(rand()%(100*N));
+  //     no->num = v[i];
+  //     printf("i=%d, num=%d\n",i, no->num);
+  //     no->prox = (*li);
+  //     no->ant = NULL;
+  //     if(*li != NULL)
+  //       (*li)->ant = no;
+  //     *li = no;
+  //     no->prox = NULL;
+  //   }
+  // }
+  void randomLista(Lista* li, int n){
+    Elem* no = (Elem*)malloc(sizeof(Elem));
+      no->num = n;
+          // printf("num=%d\n", no->num);
+          no->prox = (*li);
+          no->ant = NULL;
+          if(*li != NULL)
+            (*li)->ant = no;
+          *li = no;
+      // printf("num=%d\n", no->num);
+      // no->prox = NULL;
+      // if((*li) != NULL){
+      //   no->ant = NULL;
+      //   *li = no;
+      // }
+      // else{
+      //   Elem *aux = *li;
+      //   while(aux->prox != NULL)
+      //     aux = aux->prox;
+      //   aux->prox = no;
+      //   no->ant = aux;
+      // }
+    }
+
 
 int* leituraParametros(FILE *input, int *qtdN){
   int i, j, *N; char c, vetN[3];    //lendo a quantidade de parametro N
@@ -83,34 +108,8 @@ void computaEstatisticas(double *tmpmed, double *trcmed, double *cmpmed, int tip
 
 void imprimeMediaArq(FILE *output, double *cmpmed, double *trcmed, double *tmpmed, int repeat){
   fprintf(output, "\n>>>   MÉDIA   <<<\n\n");
-  fprintf(output, ">>> VETOR\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[VET]/(float)repeat, trcmed[VET]/(float)repeat, tmpmed[VET]/(float)repeat);
+  fprintf(output, ">>> VETOR DE INTEIROS\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[VET]/(float)repeat, trcmed[VET]/(float)repeat, tmpmed[VET]/(float)repeat);
   fprintf(output, ">>> VETOR DE STRUCT\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[STRCT]/(float)repeat, trcmed[STRCT]/(float)repeat, tmpmed[STRCT]/(float)repeat);
+  fprintf(output, ">>> LISTA DUPLAMENTE ENCADEADA DE INTEIROS\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[LIST]/(float)repeat, trcmed[LIST]/(float)repeat, tmpmed[LIST]/(float)repeat);
 
 }
-
-// void faztudo(int *N, int *vetor, elemento *vStruct, /*Lista *li*/, ){
-//   int compara, troca;
-//   double utime_ant, utime_pos, stime_ant, stime_pos, diftempo;
-//   double cmpmed[TYPE]={0,0,0}, trcmed[TYPE]={0,0,0}, tmpmed[TYPE] = {0,0,0};
-//   for(int i=0; i<TYPE; i++){
-//     compara = troca = 0;
-//     if (i=0){
-//       contaTempo(&utime_ant, &stime_ant); //marca tempo inicial
-//       quickInt(vetor, 0, N[i]-1, &compara, &troca);
-//       contaTempo(&utime_pos, &stime_pos); //marca tempo final
-//     }
-//     if (i=1){
-//       contaTempo(&utime_ant, &stime_ant); //marca tempo inicial
-//       quickStruct(vStruct, 0, N[i]-1, &compara, &troca);
-//       contaTempo(&utime_pos, &stime_pos); //marca tempo final
-//     }
-//     if (i=2){
-//       contaTempo(&utime_ant, &stime_ant); //marca tempo inicial
-//       quickLista;
-//       contaTempo(&utime_pos, &stime_pos); //marca tempo final
-//     }
-//     diftempo = (utime_pos-utime_ant) + (stime_pos-stime_ant);
-//     computaEstatisticas(tmpmed, trcmed, cmpmed, i, diftempo, troca, compara);
-//     fprintf(output, "- Vetor\n   Comparações de chaves: %d\n   Trocas de registros: %d\n   Tempo gasto: %fs\n\n", compara, troca, diftempo);
-//     }
-// }
