@@ -1,5 +1,4 @@
 #include "lista.h"
-
 #ifndef QUICKSORT
 #define QUICKSORT
 
@@ -20,4 +19,5 @@ int particionaInt(int *vetor, int inicio, int fim, int *compara, int *troca);
 void quickInt(int *vetor, int inicio, int fim, int *compara, int *troca);
 Elem* particionaLista(Elem* inicio, Elem* fim, int *compara, int *troca);
 void quickLista(Elem* inicio, Elem* fim, int *compara, int *troca);
+
 #endif
