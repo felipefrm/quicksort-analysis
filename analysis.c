@@ -8,10 +8,37 @@
 
 #define alfabeto 26
 
+int* leituraParametros(FILE *input, int *qtdN){
+
+  int i, j, *N; char c, vetN[3];    //lendo a quantidade de parametro N
+  for(i=0; (c=fgetc(input)) != '\n'; i++)
+    vetN[i] = c;  //o valor é lido como char
+  vetN[i] = '\0';
+  *qtdN = CharParaInt(vetN); // transformamos o vetor de char para int
+  char **matN = (char**)calloc((*qtdN),sizeof(char*));
+
+  for (i=0; i<*qtdN; i++){
+    matN[i] = (char*)calloc(10,sizeof(char));  // lê os valores de N é guarda em uma matriz de char
+    for(j=0; (c=fgetc(input)) != '\n'; j++)
+      matN[i][j] = c;
+    matN[i][j] = '\0';
+  }
+
+  N = (int*)calloc((*qtdN),sizeof(int));
+  for(i=0; i<*qtdN; i++){
+    N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
+    free(matN[i]);
+  }
+  free(matN);
+  return N;
+}
+
+
 void randomVetor(int *v, int N){
   for(int i=0; i < N; i++)
     v[i] = abs(rand()%(100*N));
 }
+
 
 void randomStruct(elemento *v, int N){
   char letras[alfabeto] = {"abcdefghijklmnopqrstuvwxyz"};
@@ -30,67 +57,14 @@ void randomStruct(elemento *v, int N){
   }
 }
 
-  // void randomLista(Lista* li, int* v, int N){
-  //   Elem* no = (Elem*)malloc(sizeof(Elem));
-  //   for(int i=0; i < N; i++){
-  //     v[i] = abs(rand()%(100*N));
-  //     no->num = v[i];
-  //     printf("i=%d, num=%d\n",i, no->num);
-  //     no->prox = (*li);
-  //     no->ant = NULL;
-  //     if(*li != NULL)
-  //       (*li)->ant = no;
-  //     *li = no;
-  //     no->prox = NULL;
-  //   }
-  // }
-  void randomLista(Lista* li, int n){
-    Elem* no = (Elem*)malloc(sizeof(Elem));
-      no->num = n;
-          // printf("num=%d\n", no->num);
-          no->prox = (*li);
-          no->ant = NULL;
-          if(*li != NULL)
-            (*li)->ant = no;
-          *li = no;
-      // printf("num=%d\n", no->num);
-      // no->prox = NULL;
-      // if((*li) != NULL){
-      //   no->ant = NULL;
-      //   *li = no;
-      // }
-      // else{
-      //   Elem *aux = *li;
-      //   while(aux->prox != NULL)
-      //     aux = aux->prox;
-      //   aux->prox = no;
-      //   no->ant = aux;
-      // }
-    }
 
-
-int* leituraParametros(FILE *input, int *qtdN){
-  int i, j, *N; char c, vetN[3];    //lendo a quantidade de parametro N
-  for(i=0; (c=fgetc(input)) != '\n'; i++)
-    vetN[i] = c;  //o valor é lido como char
-  vetN[i] = '\0';
-  *qtdN = CharParaInt(vetN); // transformamos o vetor de char para int
-  char **matN = (char**)calloc((*qtdN),sizeof(char*));
-  for (i=0; i<*qtdN; i++){
-    matN[i] = (char*)calloc(10,sizeof(char));  // lê os valores de N é guarda em uma matriz de char
-    for(j=0; (c=fgetc(input)) != '\n'; j++)
-      matN[i][j] = c;
-    matN[i][j] = '\0';
+void randomLista(Lista *li, int *v, int N){
+  for(int i=0; i<N; i++){
+    v[i] = abs(rand()%(100*N));
+    insereLista(li, v[i]);
   }
-  N = (int*)calloc((*qtdN),sizeof(int));
-  for(i=0; i<*qtdN; i++){
-    N[i] = CharParaInt(matN[i]);  //transforma vetor de char para int
-    free(matN[i]);
-  }
-  free(matN);
-
-  return N;
 }
+
 
 void contaTempo(double *utime, double *stime){
   struct rusage resources;
@@ -106,10 +80,10 @@ void computaEstatisticas(double *tmpmed, double *trcmed, double *cmpmed, int tip
   cmpmed[tipo] += compara;     //somatorio das comparações de chaves
 }
 
+
 void imprimeMediaArq(FILE *output, double *cmpmed, double *trcmed, double *tmpmed, int repeat){
   fprintf(output, "\n>>>   MÉDIA   <<<\n\n");
   fprintf(output, ">>> VETOR DE INTEIROS\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[VET]/(float)repeat, trcmed[VET]/(float)repeat, tmpmed[VET]/(float)repeat);
   fprintf(output, ">>> VETOR DE STRUCT\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[STRCT]/(float)repeat, trcmed[STRCT]/(float)repeat, tmpmed[STRCT]/(float)repeat);
   fprintf(output, ">>> LISTA DUPLAMENTE ENCADEADA DE INTEIROS\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[LIST]/(float)repeat, trcmed[LIST]/(float)repeat, tmpmed[LIST]/(float)repeat);
-
 }
