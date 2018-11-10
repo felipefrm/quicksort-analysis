@@ -34,7 +34,10 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *tr
 
   vetor[inicio] = vetor[dir];
   vetor[dir] = pivo;
-
+  // printf("Vetor ordenado entre %d e %d\n", inicio, fim);
+  // for (int i=inicio; i < fim; i++)
+  //     printf("%d ", vetor[i].ch);
+  // printf("\n");
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
@@ -96,12 +99,11 @@ void quickInt(int *vetor, int inicio, int fim, int *compara, int *troca){
 //Função para particionar a Lista colocando o pivo no meio, tudo que for menor
 //antes e todos os maiores depois
 Elem* particionaLista(Elem* inicio, Elem* fim, int *compara, int *troca){
-  int x = fim->num;
   Elem* pivo = inicio;
   Elem* dir = fim;
   Elem* esq = inicio;
 
-  while(dir != NULL && ESQMDIR(esq,dir)){
+  while(dir != NULL && ESQMDIR(esq, dir)){
     while(esq->num <= pivo->num && ESQMDIR(esq, fim)){
       esq = esq->prox;
       (*compara)++;
@@ -117,16 +119,18 @@ Elem* particionaLista(Elem* inicio, Elem* fim, int *compara, int *troca){
     }
   }
 
+  int aux;
+  aux = pivo->num;
   inicio->num = dir->num;
-  dir->num = pivo->num;
-  return pivo;
+  dir->num = aux;
+  return dir;
 }
 
 void quickLista(Elem* inicio, Elem* fim, int *compara, int *troca){
-  Elem* pivo;
+
   if (fim != NULL && inicio != fim && inicio != fim->prox){
     pivo =  particionaLista(inicio, fim, compara, troca);
     quickLista(inicio, pivo->ant, compara, troca);
     quickLista(pivo->prox, fim, compara, troca);
   }
-  }
+}
