@@ -128,6 +128,8 @@ Elem* particionaLista(Elem* inicio, Elem* fim, int *compara, int *troca){
 
 void quickLista(Elem* inicio, Elem* fim, int *compara, int *troca){
 
+  Elem* pivo;
+  
   if (fim != NULL && inicio != fim && inicio != fim->prox){
     pivo =  particionaLista(inicio, fim, compara, troca);
     quickLista(inicio, pivo->ant, compara, troca);
