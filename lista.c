@@ -31,23 +31,13 @@ void insereLista(Lista* li, int n){
   *li = no;
 }
 
-void imprimeLista(Lista* li){
-  if(li == NULL)
-    return;
-  Elem* no = *li;
-  while(no != NULL){
-    printf("%d\n",no->num);
-    no = no->prox;
-  }
-  printf("\n");
-}
-
 //Função para trocar elementos facilmente
 void swap(int* a, int* b){
   int aux = *a;
   *a = *b;
   *b = aux;
 }
+
 //Função para achar o último nó
 Elem* ultimono(Lista* li){
   Elem* no = *li;
