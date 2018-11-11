@@ -34,10 +34,6 @@ int particionaStruct(elemento* vetor, int inicio, int fim, int *compara, int *tr
 
   vetor[inicio] = vetor[dir];
   vetor[dir] = pivo;
-  // printf("Vetor ordenado entre %d e %d\n", inicio, fim);
-  // for (int i=inicio; i < fim; i++)
-  //     printf("%d ", vetor[i].ch);
-  // printf("\n");
   return dir;               //retorna dir, que é o índice que vai dividir o vetor
 }
 
@@ -129,7 +125,7 @@ Elem* particionaLista(Elem* inicio, Elem* fim, int *compara, int *troca){
 void quickLista(Elem* inicio, Elem* fim, int *compara, int *troca){
 
   Elem* pivo;
-  
+
   if (fim != NULL && inicio != fim && inicio != fim->prox){
     pivo =  particionaLista(inicio, fim, compara, troca);
     quickLista(inicio, pivo->ant, compara, troca);
