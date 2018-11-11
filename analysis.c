@@ -80,10 +80,9 @@ void computaEstatisticas(double *tmpmed, double *trcmed, double *cmpmed, int tip
   cmpmed[tipo] += compara;     //somatorio das comparações de chaves
 }
 
-
 void imprimeMediaArq(FILE *output, double *cmpmed, double *trcmed, double *tmpmed, int repeat){
-  fprintf(output, "\n>>>   MÉDIA   <<<\n\n");
   fprintf(output, ">>> VETOR DE INTEIROS\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[VET]/(float)repeat, trcmed[VET]/(float)repeat, tmpmed[VET]/(float)repeat);
-  fprintf(output, ">>> VETOR DE STRUCT\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[STRCT]/(float)repeat, trcmed[STRCT]/(float)repeat, tmpmed[STRCT]/(float)repeat);
   fprintf(output, ">>> LISTA DUPLAMENTE ENCADEADA DE INTEIROS\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[LIST]/(float)repeat, trcmed[LIST]/(float)repeat, tmpmed[LIST]/(float)repeat);
+  fprintf(output, ">>> VETOR DE STRUCT\n   Comparações de chaves: %.2f\n   Trocas de registros: %.2f\n   Tempo gasto médio na ordenação: %fs\n\n", cmpmed[STRCT]/(float)repeat, trcmed[STRCT]/(float)repeat, tmpmed[STRCT]/(float)repeat);
+
 }
